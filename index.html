@@ -1,4 +1,4 @@
-<html>
+<html lang="en">
 <head>
     <title>Converter: Binance Buy Crypto History to Accointing</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -16,13 +16,57 @@
     </style>
 </head>
 <body>
-<h1>Converter: Binance Buy Crypto History to Accointing</h1>
-<textarea id="csvBinance" rows="20" placeholder="Binance Buy Crypto (copy &amp; paste from 'Export Buy History.xlsx')">
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1>Converter: Binance Buy Crypto History to Accointing</h1>
+            <div class="alert alert-info">
+                Since Binance does not expose the <i>Buy Crypto</i> transactions via API, these
+                need to be exported and converted manually.
+                <p>This tool assists in converting <i>Export Buy
+                    History.xlsx</i> to
+                    <a href="https://www.accointing.com/app/templates/Accointing_template.xlsx" target="_blank">Accointing_template.xlsx</a>
+                </p>
+            </div>
+            <h2>Instructions</h2>
+            <ol>
+                <li>Open <a href="https://www.binance.com/en/my/wallet/exchange/buysell-history" target="_blank">https://www.binance.com/en/my/wallet/exchange/buysell-history</a>,
+                    click <i>Export Buy History</i> and follow the instructions to download <i>Export Buy
+                        History.xlsx</i>.
+                </li>
+                <li>Open <i>Export Buy History.xlsx</i> in Word, Open Office or the like.</li>
+                <li>Select and copy the contents to clipboard (<i>Ctrl+C</i>).</li>
+                <li>Paste it in the text area below the instruction.</li>
+                <li>Click the <i>CONVERT</i> Button. The converted table will be appended to the second text area.</li>
+                <li>Manually verify the conversion and click <i>COPY</i> in order to copy the converted table to the
+                    clipboard.
+                </li>
+                <li>Paste it to <a href="https://www.accointing.com/app/templates/Accointing_template.xlsx"
+                                   target="_blank">Accointing_template.xlsx</a>,
+                    verify correctness again and save the file.
+                </li>
+                <li>Upload the modified <i>Accointing_template.xlsx</i> on <a
+                        href="https://www.accointing.com/app/wallets"
+                        target="_blank">https://www.accointing.com/app/wallets</a>:
+                    Click the edit icon on your Binance Wallet, choose <i>Manually</i>, choose <i>Accointing
+                        Template</i>, choose
+                    <i>Next</i> and upload the file.
+                </li>
+            </ol>
+            <textarea id="csvBinance" rows="20"
+                      placeholder="Binance Buy Crypto (copy &amp; paste from 'Export Buy History.xlsx')">
 </textarea>
-<button id="btnConvert" class="btn btn-primary">CONVERT</button>
-<textarea id="csvAccointing" rows="20" placeholder="Accointing CSV">transactionType	date	inBuyAmount	inBuyAsset	outSellAmount	outSellAsset	feeAmount (optional)	feeAsset (optional)	classification (optional)	operationId (optional)
+            <button id="btnConvert" class="btn btn-primary">CONVERT</button>
+            <textarea id="csvAccointing" rows="20" placeholder="Accointing CSV">transactionType	date	inBuyAmount	inBuyAsset	outSellAmount	outSellAsset	feeAmount (optional)	feeAsset (optional)	classification (optional)	operationId (optional)
 </textarea>
-<button id="btnCopy" class="btn btn-primary">COPY</button>
+            <button id="btnCopy" class="btn btn-primary">COPY</button>
+            <h2>Disclaimer</h2>
+            This tools comes with no warranty. Please verify the results and use it on your own risk.
+            <h2>Need help?</h2>
+            You can create an issue on <a href="https://github.com/od-git/accointing-converter/issues" target="_blank">https://github.com/od-git/accointing-converter/issues</a>.
+        </div>
+    </div>
+</div>
 <script>
     $(document).ready(function () {
         $('#btnConvert').click(function () {
