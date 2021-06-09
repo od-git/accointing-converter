@@ -1,0 +1,67 @@
+<html>
+<head>
+    <title>Converter: Binance Buy Crypto History to Accointing</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style>
+        body {
+            font-family: Sans-Serif, sans-serif;
+        }
+
+        textarea {
+            font-family: monospace, monospace;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<h1>Converter: Binance Buy Crypto History to Accointing</h1>
+<textarea id="csvBinance" rows="20" placeholder="Binance Buy Crypto (copy &amp; paste from 'Export Buy History.xlsx')">
+</textarea>
+<button id="btnConvert" class="btn btn-primary">CONVERT</button>
+<textarea id="csvAccointing" rows="20" placeholder="Accointing CSV">transactionType	date	inBuyAmount	inBuyAsset	outSellAmount	outSellAsset	feeAmount (optional)	feeAsset (optional)	classification (optional)	operationId (optional)
+</textarea>
+<button id="btnCopy" class="btn btn-primary">COPY</button>
+<script>
+    $(document).ready(function () {
+        $('#btnConvert').click(function () {
+            const tableBinance = $('#csvBinance').val().trim().split('\n').map(line => line.split('\t'));
+            const csv = $('#csvAccointing');
+            console.log(tableBinance);
+            tableBinance.forEach(row => {
+                if (row[0].trim()[0] === 'D') {
+                    return;
+                }
+                const d = new Date(row[0]);
+                const date =
+                    ("0" + (d.getMonth() + 1)).slice(-2) + "." +
+                    ("0" + d.getDate()).slice(-2) + "." +
+                    d.getFullYear() + " " +
+                    ("0" + d.getHours()).slice(-2) + ":" +
+                    ("0" + d.getMinutes()).slice(-2) + ":" +
+                    ("0" + d.getSeconds()).slice(-2);
+                const newLine = [
+                    'order',
+                    date,
+                    row[5].split(' ')[0],
+                    row[5].split(' ')[1],
+                    row[2].split(' ')[0],
+                    row[2].split(' ')[1],
+                    row[4].split(' ')[0],
+                    row[4].split(' ')[1],
+                    '',
+                    row[7]
+                ].join("\t") + "\n";
+                csv.val(csv.val() + newLine);
+            });
+        });
+        $('#btnCopy').click(function () {
+            const csv = $('#csvAccointing');
+            csv.select();
+            document.execCommand('copy');
+        });
+    });
+</script>
+</body>
+</html>
